@@ -21,8 +21,8 @@ denote that it is the natural zero-element for `f`, so that:
 	product = foldr (*) 1
 	concat  = foldr (++) []
 
-Associating to the right means that `foldr` first *traverses* the
-list, and then it *folds* it (that is, it evaluated the folding
+Associating to the right means that `foldr` first *traverses* the list
+fully, and then it *folds* it (that is, it evaluates the folding
 function):
 
     foldr (+) 0 [1..3] = (1 + (2 + (3 + 0)))
