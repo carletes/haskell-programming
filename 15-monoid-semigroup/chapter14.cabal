@@ -5,11 +5,23 @@ extra-source-files:  README.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Optional
+  exposed-modules:     MonoidLaws
+                     , Optional
   hs-source-dirs:      src
   build-depends:       base >= 4.7 && < 5
                      , QuickCheck
   ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite execise-maybe-another-monoid
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             execise-maybe-another-monoid.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter14
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
 test-suite exercise-optional-monoid
