@@ -36,10 +36,10 @@ test-suite exercise-optional-monoid
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
-test-suite exercise-semigroup
+test-suite exercise-semigroup-monoid
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             exercise-semigroup.hs
+  main-is:             exercise-semigroup-monoid.hs
   build-depends:       base
                      , QuickCheck
                      , hspec
