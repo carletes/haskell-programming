@@ -141,6 +141,29 @@ type CombineAssoc =
     Combine Int (Sum Int) ->
     Bool
 
+-- Comp a
+
+newtype Comp a = Comp { unComp :: (a -> a) }
+
+instance Semigroup (Comp a) where
+    (Comp f) <> (Comp g) = Comp (f . g)
+
+instance Monoid (Comp a) where
+    mempty = Comp id
+    mappend = (<>)
+
+-- Mem s a
+
+newtype Mem s a = Mem { runMem :: s -> (a, s) }
+
+instance (Semigroup a) => Semigroup (Mem s a) where
+    (Mem f) <> (Mem g) = Mem (\s -> ((fst $ f s) <> (fst $ g s),
+                                     snd $ f $ snd $ g s))
+
+instance (Semigroup a, Monoid a) => Monoid (Mem s a) where
+    mappend = (<>)
+    mempty = Mem (\s -> (mempty, s))
+
 --Validation (AccumulateLeft)
 
 data Validation a b =
@@ -336,6 +359,25 @@ main = hspec $ do
 
             it "(f <> mempty) $ 1 = 2" $ do
                 (unCombine (f <> mempty) $ 1) `shouldBe` (Sum 2 :: Sum Int)
+
+    describe "Mem" $ do
+        describe "Required values" $ do
+            let f = Mem $ \s -> ("hi", s + 1)
+
+            it "(f <> mempty) 0 = (hi, 1)" $ do
+                runMem (f <> mempty) 0 `shouldBe` ("hi", 1 :: Int)
+
+            it "(mempty <> f) 0 = (hi, 1)" $ do
+                runMem (mempty <> f) 0 `shouldBe` ("hi", 1 :: Int)
+
+            it "mempty 0 = (hi, 0)" $ do
+                runMem mempty 0 `shouldBe` ("", 0 :: Int)
+
+            it "(f <> mempty) 0 = f 0" $ do
+                runMem (f <> mempty) 0 `shouldBe` runMem f 0
+
+            it "(mempty <> f) 0 = f 0" $ do
+                runMem (mempty <> f) 0 `shouldBe` runMem f 0
 
     describe "AccumulateLeft a b" $ do
         it "is associative" $ do
