@@ -1,0 +1,21 @@
+name:                chapter16
+version:             0.1.0.0
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     FunctorLaws
+  build-depends:       base >= 4.7 && < 5
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite exercise-instances-of-func
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-instances-of-func.hs
+  build-depends:       base
+                     , chapter16
+  ghc-options:         -Wall
+  default-language:    Haskell2010
