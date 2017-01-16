@@ -66,6 +66,17 @@ test-suite exercise-possibly
   ghc-options:         -Wall
   default-language:    Haskell2010
 
+test-suite exercises-chapter
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercises-chapter.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter16
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
 test-suite natural-transformations
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
