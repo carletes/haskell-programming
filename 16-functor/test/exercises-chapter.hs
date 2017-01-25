@@ -347,6 +347,46 @@ goatLordIdentity = functorIdentity
 goatLordComposition :: GoatLord Int -> Fun Int Int -> Fun Int Int -> Bool
 goatLordComposition = functorComposition
 
+--- TalkToMe a
+
+data TalkToMe a =
+    Halt
+  | Print String a
+  | Read (String -> a)
+
+instance Functor TalkToMe where
+    fmap _ Halt = Halt
+    fmap f (Print s a) = Print s (f a)
+    fmap f (Read g) = Read (f . g)
+
+instance (Arbitrary a) => Arbitrary (TalkToMe a) where
+    arbitrary = do
+        a <- arbitrary
+        s <- arbitrary
+        oneof [return Halt,
+               return $ Print s a,
+               return $ Read (\_ -> a)]
+
+instance (Eq a) => Eq (TalkToMe a) where
+    Halt == Halt = True
+    Halt == _ = False
+    Print s a == Print s' a' = (s == s') && (a == a')
+    Print _ _ == _ = False
+    --- Mmmm, so `Read f` == `Read g` always ???
+    Read _ == Read _ = True
+    Read _ == _ = False
+
+instance (Show a) => Show (TalkToMe a) where
+    show Halt = "Halt"
+    show (Print s a) = "Print " ++ s ++ " " ++ (show a)
+    show (Read _) = "Read (String -> a)"
+
+talkToMeIdentity :: TalkToMe Int -> Bool
+talkToMeIdentity = functorIdentity
+
+talkToMeComposition :: TalkToMe Int -> Fun Int Int -> Fun Int Int -> Bool
+talkToMeComposition = functorComposition
+
 --- Test suite driver
 
 main :: IO ()
@@ -454,3 +494,10 @@ main = hspec $ do
 
         it "follows the composition law" $ do
             property goatLordComposition
+
+    describe "The functor for TalkToMe a" $ do
+        it "follows the identity law" $ do
+            property talkToMeIdentity
+
+        it "follows the composition law" $ do
+            property talkToMeComposition
