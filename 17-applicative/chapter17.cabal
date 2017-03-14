@@ -1,0 +1,24 @@
+name:                chapter17
+version:             0.1.0.0
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     ApplicativeLaws
+  build-depends:       base >= 4.7 && < 5
+                     , QuickCheck
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite exercise-lookups
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-lookups.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
