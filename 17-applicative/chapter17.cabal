@@ -12,10 +12,43 @@ library
   ghc-options:         -Wall
   default-language:    Haskell2010
 
+test-suite exercise-constant
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-constant.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite exercise-identity
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-identity.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
 test-suite exercise-lookups
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             exercise-lookups.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite using-maybe-applicative
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             using-maybe-applicative.hs
   build-depends:       base
                      , QuickCheck
                      , hspec
