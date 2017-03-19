@@ -45,6 +45,19 @@ test-suite exercise-identity
   ghc-options:         -Wall
   default-language:    Haskell2010
 
+test-suite exercise-list-applicative
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-list-applicative.hs
+  build-depends:       base
+                     , QuickCheck
+                     , checkers
+                     , hspec
+                     , hspec-checkers
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
 test-suite exercise-lookups
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
