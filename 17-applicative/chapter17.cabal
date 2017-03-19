@@ -23,6 +23,17 @@ test-suite exercise-constant
   ghc-options:         -Wall
   default-language:    Haskell2010
 
+test-suite exercise-fixer-upper
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             exercise-fixer-upper.hs
+  build-depends:       base
+                     , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
 test-suite exercise-identity
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
@@ -40,6 +51,18 @@ test-suite exercise-lookups
   main-is:             exercise-lookups.hs
   build-depends:       base
                      , QuickCheck
+                     , hspec
+                     , chapter17
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+test-suite using-checkers
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             using-checkers.hs
+  build-depends:       base
+                     , QuickCheck
+                     , checkers
                      , hspec
                      , chapter17
   ghc-options:         -Wall
