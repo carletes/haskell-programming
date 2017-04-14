@@ -1,0 +1,39 @@
+name: chapter15
+
+ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+source-dirs: test
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - MonoidLaws
+    - Optional
+    - SemigroupLaws
+  dependencies:
+    - base
+    - QuickCheck
+
+tests:
+  execise-maybe-another-monoid:
+    main: execise-maybe-another-monoid.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter15
+
+  exercise-optional-monoid:
+    main: exercise-optional-monoid.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter15
+
+  exercise-semigroup-monoid:
+    main: exercise-semigroup-monoid.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter15

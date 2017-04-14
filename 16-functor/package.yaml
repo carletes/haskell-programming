@@ -1,0 +1,84 @@
+name: chapter16
+
+ghc-options: -Wall
+source-dirs: test
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - FunctorLaws
+  dependencies:
+    - base
+    - QuickCheck
+
+tests:
+  const:
+    main: const.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  exercise-either:
+    main: exercise-either.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  exercise-heavy-lifting:
+    main: exercise-heavy-lifting.hs
+    dependencies:
+      - base
+      - hspec
+      - chapter16
+
+  exercise-instances-of-func:
+    main: exercise-instances-of-func.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  exercise-possibly:
+    main: exercise-possibly.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  exercises-chapter:
+    main: exercises-chapter.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  natural-transformations:
+    main: natural-transformations.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  no-identity-law:
+    main: no-identity-law.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16
+
+  wrap:
+    main: wrap.hs
+    dependencies:
+      - base
+      - QuickCheck
+      - hspec
+      - chapter16

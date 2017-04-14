@@ -1,0 +1,36 @@
+---
+name: chapter17
+
+ghc-options: -Wall
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - checkers
+  - hspec
+  - hspec-checkers
+
+tests:
+  exercise-constant:
+    main: exercise-constant.hs
+
+  exercise-fixer-upper:
+    main: exercise-fixer-upper.hs
+
+  exercise-identity:
+    main: exercise-identity.hs
+
+  exercise-list-applicative:
+    main: exercise-list-applicative.hs
+
+  exercise-lookups:
+    main: exercise-lookups.hs
+
+  exercises-chapter:
+    main: exercises-chapter.hs
+
+  using-checkers:
+    main: using-checkers.hs
+
+  using-maybe-applicative:
+    main: using-maybe-applicative.hs
