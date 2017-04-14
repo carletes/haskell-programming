@@ -2,6 +2,7 @@
 
 module Main where
 
+import Control.Applicative
 import Data.Monoid
 import Test.Hspec
 import Test.Hspec.Checkers
@@ -201,3 +202,9 @@ main = hspec $ do
         testBatch $ monoid (undefined :: (Four' Int Int))
         testBatch $ functor (undefined :: (Four' Int Int, (Int, Int, Int)))
         testBatch $ applicative (undefined :: (Four' Int Int, (Int, Int, Int)))
+
+    describe "All words" $ do
+        it "build words with `liftA3`" $ do
+            let stops = "pbtdkg"
+            let vowels = "aeiou"
+            (liftA3 (\s1 v s2 -> (s1, v, s2)) stops vowels stops) `shouldBe` [(s1, v, s2) | s1 <- stops, v <- vowels, s2 <- stops]
