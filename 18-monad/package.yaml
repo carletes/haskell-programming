@@ -1,0 +1,17 @@
+name: chapter18
+
+ghc-options: -Wall
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - checkers
+  - hspec
+  - hspec-checkers
+
+tests:
+  bind-from-join:
+    main: bind-from-join.hs
+
+  exercise-either:
+    main: exercise-either.hs
