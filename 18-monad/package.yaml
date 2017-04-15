@@ -9,9 +9,17 @@ dependencies:
   - hspec
   - hspec-checkers
 
+library:
+  source-dirs: src
+  dependencies:
+    - base
+
 tests:
   bind-from-join:
     main: bind-from-join.hs
 
   exercise-either:
     main: exercise-either.hs
+
+  exercises-chapter:
+    main: exercises-chapter.hs
