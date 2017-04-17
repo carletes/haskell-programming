@@ -7,6 +7,7 @@ import Control.Monad
 
 import Test.Hspec
 import Test.Hspec.Checkers
+import Test.Hspec.QuickCheck
 import Test.QuickCheck
 import Test.QuickCheck.Checkers
 import Test.QuickCheck.Classes
@@ -47,18 +48,18 @@ data PhhhbbtttEither b a =
   deriving (Eq, Show)
 
 instance Functor (PhhhbbtttEither b) where
-    fmap f (Left a) = Left (f a)
-    fmap _ (Right b) = Right b
+    fmap f (Left x) = Left (f x)
+    fmap _ (Right y) = Right y
 
 instance (Monoid b) => Applicative (PhhhbbtttEither b) where
-    pure a = Left a
+    pure x = Left x
     (Right _) <*> _ = Right mempty
-    (Left _) <*> (Right b) = Right b
-    (Left f) <*> (Left a) = Left (f a)
+    (Left _) <*> (Right y) = Right y
+    (Left f) <*> (Left x) = Left (f x)
 
 instance (Monoid b) => Monad (PhhhbbtttEither b) where
-    (Right b) >>= _ = Right b
-    (Left a) >>= f = f a
+    (Right y) >>= _ = Right y
+    (Left x) >>= f = f x
 
 instance Monoid Int where
     mempty = 0
@@ -66,15 +67,15 @@ instance Monoid Int where
 
 instance Monoid (PhhhbbtttEither Int Int) where
     mempty = Left 0
-    (Right b) `mappend` _ = (Right b)
-    (Left _) `mappend` (Right b) = Right b
-    (Left a) `mappend` Left a' = Left (a+a')
+    (Right y) `mappend` _ = (Right y)
+    (Left _) `mappend` (Right y) = Right y
+    (Left x) `mappend` Left x' = Left (x+x')
 
 instance (Arbitrary b, Arbitrary a) => Arbitrary (PhhhbbtttEither b a) where
     arbitrary = do
-        b <- arbitrary
-        a <- arbitrary
-        oneof [return $ Left a, return $ Right b]
+        y <- arbitrary
+        x <- arbitrary
+        oneof [return $ Left x, return $ Right y]
 
 instance (Eq a, Eq b) => EqProp (PhhhbbtttEither b a) where
     (=-=) = eq
@@ -85,23 +86,23 @@ newtype Identity a = Identity a
     deriving (Eq, Show)
 
 instance Functor Identity where
-    fmap f (Identity a) = Identity (f a)
+    fmap f (Identity x) = Identity (f x)
 
 instance Applicative Identity where
-    pure a = Identity a
-    (Identity f) <*> (Identity a) = Identity (f a)
+    pure x = Identity x
+    (Identity f) <*> (Identity x) = Identity (f x)
 
 instance Monad Identity where
-    (Identity a) >>= f = f a
+    (Identity x) >>= f = f x
 
 instance Monoid (Identity Int) where
     mempty = Identity 0
-    (Identity a) `mappend` (Identity a') = Identity (a+a')
+    (Identity x) `mappend` (Identity x') = Identity (x+x')
 
 instance (Arbitrary a) => Arbitrary (Identity a) where
     arbitrary = do
-        a <- arbitrary
-        return $ Identity a
+        x <- arbitrary
+        return $ Identity x
 
 instance (Eq a) => EqProp (Identity a) where
     (=-=) = eq
@@ -115,7 +116,7 @@ data List a =
 
 instance Functor List where
     fmap _ Nil = Nil
-    fmap f (Cons a as) = Cons (f a) (fmap f as)
+    fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
 instance Monoid (List a) where
     mempty = Nil
@@ -152,17 +153,33 @@ j x = do
 
 l1 :: Monad m => (a -> b) -> m a -> m b
 l1 f ma = do
-    a <- ma
-    return $ f a
+    a' <- ma
+    return $ f a'
 
 l1' :: Monad m => (a -> b) -> m a -> m b
 l1' f ma = ma >>= (return . f)
 
 l2 :: Monad m => (a -> b -> c) -> m a -> m b -> m c
 l2 f ma mb = do
-    a <- ma
-    b <- mb
-    return $ f a b
+    a' <- ma
+    b' <- mb
+    return $ f a' b'
+
+a :: Monad m => m a -> m (a -> b) -> m b
+a ma mf = do
+    f <- mf
+    fmap f ma
+
+meh :: Monad m => [a] -> (a -> m b) -> m [b]
+meh [] _ = return []
+meh (x:xs) f = do
+    fx <- f x
+    fxs <- meh xs f
+    return $ fx : fxs
+
+flipType :: Monad m => [m a] -> m [a]
+flipType mas = meh mas id
+
 
 -- Test suite driver.
 
@@ -237,10 +254,36 @@ main = hspec $ do
         testBatch $ monadApplicative t2
 
     describe "j" $ do
-        error "Implement `== join` with QuickCheck"
+        prop "is `join` (1)" $ ((\xs -> j xs == join xs) :: ([[Int]] -> Bool))
+        prop "is `join` (2)" $ ((\xs -> j xs == join xs) :: (Maybe (Maybe Int) -> Bool))
 
     describe "l1" $ do
-        error "Implement `== liftM` with QuickCheck"
+        let f = (1+)
+        prop "is liftM (1)" $ ((\xs -> l1 f xs == liftM f xs) :: ([Int] -> Bool))
+        prop "is liftM (2)" $ ((\xs -> l1 f xs == liftM f xs) :: (Maybe Int -> Bool))
+
+    describe "l1'" $ do
+        let f = (1+)
+        prop "is liftM (1)" $ ((\xs -> l1' f xs == liftM f xs) :: ([Int] -> Bool))
+        prop "is liftM (2)" $ ((\xs -> l1' f xs == liftM f xs) :: (Maybe Int -> Bool))
 
     describe "l2" $ do
-        error "Implement `liftM2` with QuickCheck"
+        let f = (+)
+        prop "is liftM2 (1)" $
+            ((\xs ys -> l2 f xs ys == liftM2 f xs ys) :: ([Int] -> [Int]-> Bool))
+        prop "is liftM2 (2)" $
+            ((\xs ys -> l2 f xs ys == liftM2 f xs ys) :: (Maybe Int -> Maybe Int -> Bool))
+
+    describe "a" $ do
+        let f = [(1+)]
+        prop "is ap flipped (1)" $
+            ((\xs -> xs `a` f == f `ap` xs) :: [Int] -> Bool)
+
+    describe "meh" $ do
+        let f = \x -> if x == 42 then Just 42 else Nothing :: Maybe Int
+        prop "is forM" $
+            ((\xs -> meh xs f == forM xs f) :: [Int] -> Bool)
+
+    describe "flipType" $ do
+        prop "is `sequence`" $
+            ((\xs -> flipType xs == sequence xs) :: [Maybe Int] -> Bool)
