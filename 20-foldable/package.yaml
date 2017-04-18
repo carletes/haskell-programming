@@ -1,0 +1,14 @@
+name: chapter20
+
+ghc-options: -Wall
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - checkers
+  - hspec
+  - hspec-checkers
+
+tests:
+  exercise-library-functions:
+    main: exercise-library-functions.hs
