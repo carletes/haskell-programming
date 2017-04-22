@@ -12,3 +12,6 @@ dependencies:
 tests:
   exercise-library-functions:
     main: exercise-library-functions.hs
+
+  exercises-chapter:
+    main: exercises-chapter.hs
