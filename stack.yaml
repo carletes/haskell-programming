@@ -1,0 +1,14 @@
+resolver: lts-8.11
+
+packages:
+  - ./15-monoid-semigroup
+  - ./16-functor
+  - ./17-applicative
+  - ./18-monad
+  - ./20-foldable
+
+extra-deps: []
+
+flags: {}
+
+extra-package-dbs: []
