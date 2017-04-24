@@ -1,0 +1,22 @@
+name: chapter21
+
+ghc-options: -Wall
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - checkers
+  - hspec
+  - hspec-checkers
+
+library:
+  source-dirs: src
+  dependencies:
+    - base
+    - bytestring
+    - containers
+    - wreq
+
+tests:
+  exercises-chapter:
+    main: exercises-chapter.hs

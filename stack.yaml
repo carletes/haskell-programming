@@ -6,6 +6,7 @@ packages:
   - ./17-applicative
   - ./18-monad
   - ./20-foldable
+  - ./21-traversable
 
 extra-deps: []
 
