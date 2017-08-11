@@ -1,6 +1,6 @@
 name: chapter15
 
-ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -threaded -rtsopts -with-rtsopts=-N
 source-dirs: test
 
 library:

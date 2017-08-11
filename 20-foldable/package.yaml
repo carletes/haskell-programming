@@ -1,6 +1,6 @@
 name: chapter20
 
-ghc-options: -Wall
+ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
 source-dirs: test
 dependencies:
   - base

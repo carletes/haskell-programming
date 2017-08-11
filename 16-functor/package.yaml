@@ -1,6 +1,6 @@
 name: chapter16
 
-ghc-options: -Wall
+ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
 source-dirs: test
 
 library:
