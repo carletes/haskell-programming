@@ -1,0 +1,18 @@
+name: chapter22
+
+ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
+
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - hspec
+
+library:
+  source-dirs: src
+  dependencies:
+    - base
+
+tests:
+  exercise-warming-up:
+    main: exercise-warming-up.hs
