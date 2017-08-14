@@ -27,24 +27,24 @@ tupledMonadic = do
 
 main :: IO ()
 main = hspec $ do
-    describe "composed" $ do
+    describe "composed" $
         it "behaves as expected" $ do
             composed "Julie" `shouldBe` "EILUJ"
             composed "Chris" `shouldBe` "SIRHC"
 
-    describe "fmapped" $ do
+    describe "fmapped" $
         it "behaves as expected" $ do
             fmapped "Julie" `shouldBe` "EILUJ"
             fmapped "Chris" `shouldBe` "SIRHC"
 
-    describe "composed and fmapped " $ do
+    describe "composed and fmapped " $
         prop "are the same" $
             \xs -> composed xs == fmapped xs
 
-    describe "tupled" $ do
-        it "behaves as expected" $ do
+    describe "tupled" $
+        it "behaves as expected" $
             tupled "Julie" `shouldBe` ("JULIE", "eiluJ")
 
-    describe "tupledMonadic" $ do
+    describe "tupledMonadic" $
         prop "is like `tupled`" $
             \xs -> tupled xs == tupledMonadic xs

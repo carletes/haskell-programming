@@ -19,7 +19,7 @@ instance Functor (Sum a) where
     fmap f (Second b) = Second (f b)
 
 instance Applicative (Sum a) where
-    pure b = Second b
+    pure = Second
     (First a) <*> _ = First a
     (Second _) <*> (First a) = First a
     (Second f) <*> (Second b) = Second (f b)
@@ -50,7 +50,7 @@ instance (Eq a, Eq b) => EqProp (Sum a b) where
 -- Test suite driver.
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Sum a b" $ do
         testBatch $ functor (undefined :: (Sum String Int, (Int, Int, Int)))
         testBatch $ applicative (undefined :: (Sum String Int, (Int, Int, Int)))

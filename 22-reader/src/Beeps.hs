@@ -6,12 +6,14 @@ import Control.Applicative
 -- should we wish to make `boop` polymorphic:
 --
 --     boop :: Num a => a -> a
+boop :: Integer -> Integer
 boop = (*2)
 
 -- As mentioned in page 834, the following function signature is required,
 -- should we wish to make `doop` polymorphic:
 --
 --     doop :: Num a => a -> a
+doop :: Integer -> Integer
 doop = (+10)
 
 -- As mentioned in page 834, the following function signature is required,

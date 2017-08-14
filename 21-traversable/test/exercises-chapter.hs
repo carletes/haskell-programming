@@ -70,7 +70,7 @@ instance Functor Optional where
     fmap f (Yep a) = Yep (f a)
 
 instance Applicative Optional where
-    pure a = Yep a
+    pure = Yep
     Nada <*> _ = Nada
     _ <*> Nada = Nada
     Yep f <*> Yep a = Yep (f a)

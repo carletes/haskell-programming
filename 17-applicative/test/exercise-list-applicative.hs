@@ -64,9 +64,9 @@ instance (Eq a) => EqProp (List a) where
 -- There we go!
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "List" $ do
-        it "expected values" $ do
+        it "expected values" $
             fromList [(+1), (*2)] <*> fromList [1, 2]
                 `shouldBe` fromList [2, 3, 2, 4]
 

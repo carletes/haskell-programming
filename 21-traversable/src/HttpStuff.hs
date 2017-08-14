@@ -7,4 +7,4 @@ import Network.Wreq
 type Url = String
 
 traverseUrls :: [Url] -> IO [Response L.ByteString]
-traverseUrls urls = traverse get urls
+traverseUrls = traverse get

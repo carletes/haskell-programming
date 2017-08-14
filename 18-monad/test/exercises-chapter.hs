@@ -52,7 +52,7 @@ instance Functor (PhhhbbtttEither b) where
     fmap _ (Right y) = Right y
 
 instance (Monoid b) => Applicative (PhhhbbtttEither b) where
-    pure x = Left x
+    pure = Left
     (Right _) <*> _ = Right mempty
     (Left _) <*> (Right y) = Right y
     (Left f) <*> (Left x) = Left (f x)
@@ -89,7 +89,7 @@ instance Functor Identity where
     fmap f (Identity x) = Identity (f x)
 
 instance Applicative Identity where
-    pure x = Identity x
+    pure = Identity
     (Identity f) <*> (Identity x) = Identity (f x)
 
 instance Monad Identity where
@@ -132,7 +132,7 @@ instance Applicative List where
 
 instance Monad List where
     Nil >>= _ = Nil
-    (Cons x xs) >>= f = (f x) `mappend` (join $ fmap f xs)
+    (Cons x xs) >>= f = f x `mappend` join (fmap f xs)
 
 instance (Arbitrary a) => Arbitrary (List a) where
     arbitrary = do
@@ -211,8 +211,8 @@ main = hspec $ do
 
         it "implements the `Monad` typeclass" $ do
             let plusOne x = Left (x + 1)
-            ((Left 41) >>= plusOne) `shouldBe` (Left 42 :: PhhhbbtttEither Int Int)
-            ((Right 41) >>= plusOne) `shouldBe` (Right 41 :: PhhhbbtttEither Int Int)
+            (Left 41 >>= plusOne) `shouldBe` (Left 42 :: PhhhbbtttEither Int Int)
+            (Right 41 >>= plusOne) `shouldBe` (Right 41 :: PhhhbbtttEither Int Int)
 
         testBatch $ monad t3
         testBatch $ monadFunctor t2
@@ -229,7 +229,7 @@ main = hspec $ do
 
         it "implements the `Monad` typeclass" $ do
             let plusOne x = Identity (x + 1)
-            ((Identity 41) >>= plusOne) `shouldBe` (Identity 42 :: Identity Int)
+            (Identity 41 >>= plusOne) `shouldBe` (Identity 42 :: Identity Int)
 
         testBatch $ monad t3
         testBatch $ monadFunctor t2
@@ -247,43 +247,43 @@ main = hspec $ do
         it "implements the `Monad` typeclass" $ do
             let plusOne x = Cons (x+1) Nil :: List Int
             (Nil >>= plusOne) `shouldBe` Nil
-            ((Cons 41 (Cons 42 (Cons 43 Nil))) >>= plusOne) `shouldBe` ((Cons 42 (Cons 43 (Cons 44 Nil))))
+            (Cons 41 (Cons 42 (Cons 43 Nil)) >>= plusOne) `shouldBe` Cons 42 (Cons 43 (Cons 44 Nil))
 
         testBatch $ monad t3
         testBatch $ monadFunctor t2
         testBatch $ monadApplicative t2
 
     describe "j" $ do
-        prop "is `join` (1)" $ ((\xs -> j xs == join xs) :: ([[Int]] -> Bool))
-        prop "is `join` (2)" $ ((\xs -> j xs == join xs) :: (Maybe (Maybe Int) -> Bool))
+        prop "is `join` (1)" ((\xs -> j xs == join xs) :: ([[Int]] -> Bool))
+        prop "is `join` (2)" ((\xs -> j xs == join xs) :: (Maybe (Maybe Int) -> Bool))
 
     describe "l1" $ do
         let f = (1+)
-        prop "is liftM (1)" $ ((\xs -> l1 f xs == liftM f xs) :: ([Int] -> Bool))
-        prop "is liftM (2)" $ ((\xs -> l1 f xs == liftM f xs) :: (Maybe Int -> Bool))
+        prop "is liftM (1)" ((\xs -> l1 f xs == liftM f xs) :: ([Int] -> Bool))
+        prop "is liftM (2)" ((\xs -> l1 f xs == liftM f xs) :: (Maybe Int -> Bool))
 
     describe "l1'" $ do
         let f = (1+)
-        prop "is liftM (1)" $ ((\xs -> l1' f xs == liftM f xs) :: ([Int] -> Bool))
-        prop "is liftM (2)" $ ((\xs -> l1' f xs == liftM f xs) :: (Maybe Int -> Bool))
+        prop "is liftM (1)" ((\xs -> l1' f xs == liftM f xs) :: ([Int] -> Bool))
+        prop "is liftM (2)" ((\xs -> l1' f xs == liftM f xs) :: (Maybe Int -> Bool))
 
     describe "l2" $ do
         let f = (+)
-        prop "is liftM2 (1)" $
+        prop "is liftM2 (1)"
             ((\xs ys -> l2 f xs ys == liftM2 f xs ys) :: ([Int] -> [Int]-> Bool))
-        prop "is liftM2 (2)" $
+        prop "is liftM2 (2)"
             ((\xs ys -> l2 f xs ys == liftM2 f xs ys) :: (Maybe Int -> Maybe Int -> Bool))
 
     describe "a" $ do
         let f = [(1+)]
-        prop "is ap flipped (1)" $
+        prop "is ap flipped (1)"
             ((\xs -> xs `a` f == f `ap` xs) :: [Int] -> Bool)
 
     describe "meh" $ do
-        let f = \x -> if x == 42 then Just 42 else Nothing :: Maybe Int
-        prop "is forM" $
+        let f x = if x == 42 then Just 42 else Nothing :: Maybe Int
+        prop "is forM"
             ((\xs -> meh xs f == forM xs f) :: [Int] -> Bool)
 
-    describe "flipType" $ do
-        prop "is `sequence`" $
+    describe "flipType" $
+        prop "is `sequence`"
             ((\xs -> flipType xs == sequence xs) :: [Maybe Int] -> Bool)

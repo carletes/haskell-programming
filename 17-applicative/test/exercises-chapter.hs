@@ -46,7 +46,7 @@ instance Functor (Two a) where
     fmap f (Two a b) = Two a (f b)
 
 instance (Monoid a) => Applicative (Two a) where
-    pure b = Two mempty b
+    pure = Two mempty
     (Two a f) <*> (Two a' b) = Two (a <> a') (f b )
 
 instance Monoid (Two Int Int) where
@@ -71,7 +71,7 @@ instance Functor (Three a b) where
     fmap f (Three a b c) = Three a b (f c)
 
 instance (Monoid a, Monoid b) => Applicative (Three a b) where
-    pure c = Three mempty mempty c
+    pure = Three mempty mempty
     (Three a b f) <*> (Three a' b' c) = Three (a <> a') (b <> b') (f c)
 
 instance Monoid (Three Int Int Int) where
@@ -123,7 +123,7 @@ instance Functor (Four a b c) where
   fmap f (Four a b c d) = Four a b c (f d)
 
 instance (Monoid a, Monoid b, Monoid c) => Applicative (Four a b c) where
-    pure d = Four mempty mempty mempty d
+    pure = Four mempty mempty mempty
     (Four a b c f) <*> (Four a' b' c' d) = Four (a <> a') (b <> b') (c <> c') (f d)
 
 instance Monoid (Four Int Int Int Int) where
@@ -151,7 +151,7 @@ instance Functor (Four' a) where
     fmap f (Four' a a1 a2 b) = Four' a a1 a2 (f b)
 
 instance (Monoid a) => Applicative (Four' a) where
-    pure b = Four' mempty mempty mempty b
+    pure = Four' mempty mempty mempty
     (Four' a a1 a2 f) <*> (Four' a' a1' a2' x) = Four' (a <> a') (a1 <> a1') (a2 <> a2') (f x)
 
 instance Monoid (Four' Int Int) where
@@ -203,8 +203,8 @@ main = hspec $ do
         testBatch $ functor (undefined :: (Four' Int Int, (Int, Int, Int)))
         testBatch $ applicative (undefined :: (Four' Int Int, (Int, Int, Int)))
 
-    describe "All words" $ do
+    describe "All words" $
         it "build words with `liftA3`" $ do
             let stops = "pbtdkg"
             let vowels = "aeiou"
-            (liftA3 (\s1 v s2 -> (s1, v, s2)) stops vowels stops) `shouldBe` [(s1, v, s2) | s1 <- stops, v <- vowels, s2 <- stops]
+            liftA3 (\s1 v s2 -> (s1, v, s2)) stops vowels stops `shouldBe` [(s1, v, s2) | s1 <- stops, v <- vowels, s2 <- stops]

@@ -47,10 +47,10 @@ wrapComposition :: Wrap [] Int -> Fun [Int] [Int] -> Fun Int [Int] -> Bool
 wrapComposition = functorComposition
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "The functor for Wrap f a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property wrapIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property wrapComposition

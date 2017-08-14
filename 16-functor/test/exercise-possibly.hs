@@ -14,7 +14,7 @@ data Possibly a =
   deriving (Eq, Show)
 
 instance Functor Possibly where
-    fmap _ (LolNope) = LolNope
+    fmap _ LolNope = LolNope
     fmap f (Yeppers a) = Yeppers (f a)
 
 instance (Arbitrary a) => Arbitrary (Possibly a) where
@@ -32,10 +32,10 @@ possiblyComposition = functorComposition
 --- Let's go!
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Possibly a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property possiblyIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property possiblyComposition

@@ -13,9 +13,9 @@ instance (Monoid a) => Applicative (Constant a) where
     (<*>) (Constant _) (Constant a) = Constant a
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Applicative instance for `Constant`" $ do
-        it "pure" $ do
+        it "pure" $
             pure (42 :: Integer) `shouldBe` Constant ""
-        it "ap" $ do
+        it "ap" $
             pure (even :: Integer -> Bool) <*> Constant "" `shouldBe` Constant ""

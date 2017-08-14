@@ -165,50 +165,50 @@ fourPrimeComposition = functorComposition
 main :: IO ()
 main = hspec $ do
     describe "Identity a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property identityIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property identityComposition
 
     describe "Pair a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property pairIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property pairComposition
 
     describe "Two a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property twoIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property twoComposition
 
     describe "Three a b c" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property threeIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property threeComposition
 
     describe "Three' a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property threePrimeIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property threePrimeComposition
 
     describe "Four a b c d" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property fourIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property fourComposition
 
     describe "Four' a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property fourPrimeIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property fourPrimeComposition

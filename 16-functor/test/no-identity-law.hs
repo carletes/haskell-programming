@@ -46,10 +46,10 @@ followsFunctorIdentity = functorIdentity
 
 main :: IO ()
 main = hspec $ do
-    describe "Functor for `CountingBad`" $ do
-        it "breaks the functor identity law" $ do
-            property (noFunctorIdentity)
+    describe "Functor for `CountingBad`" $
+        it "breaks the functor identity law" $
+            property noFunctorIdentity
 
-    describe "Functor for `CountingGood`" $ do
-        it "follows the functor identity law" $ do
-            property (followsFunctorIdentity)
+    describe "Functor for `CountingGood`" $
+        it "follows the functor identity law" $
+            property followsFunctorIdentity

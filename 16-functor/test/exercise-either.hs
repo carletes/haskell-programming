@@ -33,10 +33,10 @@ sumComposition = functorComposition
 --- Let's go!
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Sum a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property sumIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property sumComposition

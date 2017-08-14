@@ -241,7 +241,7 @@ instance (Arbitrary a) => Arbitrary (Parappa Maybe [] a) where
         fa <- oneof [return $ Just a,
                      return Nothing]
         ga <- arbitrary
-        return $ DaWrappa (fa) (ga)
+        return $ DaWrappa fa ga
 
 parappaIdentity :: Parappa Maybe [] Int -> Bool
 parappaIdentity = functorIdentity
@@ -392,112 +392,112 @@ talkToMeComposition = functorComposition
 main :: IO ()
 main = hspec $ do
     describe "The functor for BoolAndSomethingElse a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property boolAndSomethingElseIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property boolAndSomethingElseComposition
 
     describe "The functor for BoolAndMaybeSomethingElse a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property boolAndMaybeSomethingElseIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property boolAndMaybeSomethingElseComposition
 
     describe "The functor for Sum b a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property sumIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property sumComposition
 
     describe "The functor for Company a c b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property companyIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property companyComposition
 
     describe "The functor for More b a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property moreIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property moreComposition
 
-        it "works as exepected (L)" $ do
+        it "works as exepected (L)" $
             (fmap (+1) (L 1 2 3) :: More Int Int) `shouldBe` L 2 2 4
 
-        it "works as exepected (R)" $ do
+        it "works as exepected (R)" $
             (fmap (+1) (R 1 2 3) :: More Int Int) `shouldBe` R 1 3 3
 
     describe "The functor for Quant a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property quantIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property quantComposition
 
     describe "The functor for Flip K a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property flipIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property flipComposition
 
     describe "The functor for EvilGoateeConst a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property goatyIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property goatyComposition
 
     describe "The functor for liftItOut f a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property liftItOutIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property liftItOutComposition
 
     describe "The functor for Parappa f g a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property parappaIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property parappaComposition
 
     describe "The functor for IgnoreOne f g a b" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property ignoreOneIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property ignoreOneComposition
 
     describe "The functor for Notorious g o a t" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property notoriousIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property notoriousComposition
 
     describe "The functor for List a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property listIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property listComposition
 
     describe "The functor for GoatLord a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property goatLordIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property goatLordComposition
 
     describe "The functor for TalkToMe a" $ do
-        it "follows the identity law" $ do
+        it "follows the identity law" $
             property talkToMeIdentity
 
-        it "follows the composition law" $ do
+        it "follows the composition law" $
             property talkToMeComposition

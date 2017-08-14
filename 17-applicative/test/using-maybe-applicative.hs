@@ -48,12 +48,12 @@ mkPerson' n a = do
     return $ Person n' a'
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "mkPerson" $ do
-        it "Applicative" $ do
+        it "Applicative" $
             mkPerson "Pepin de Triana" "42, His Street" `shouldBe`
                 Just (Person (Name "Pepin de Triana") (Address "42, His Street"))
 
-        it "Monadic" $ do
+        it "Monadic" $
             mkPerson' "Pepin de Triana" "42, His Street" `shouldBe`
                 Just (Person (Name "Pepin de Triana") (Address "42, His Street"))

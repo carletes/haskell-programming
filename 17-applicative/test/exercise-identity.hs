@@ -9,15 +9,15 @@ instance Functor Identity where
     fmap f (Identity a) = Identity (f a)
 
 instance Applicative Identity where
-    pure a = Identity a
+    pure = Identity
     (<*>) (Identity f) (Identity a) = Identity (f a)
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Applicative instance for `Identity`" $ do
-        it "pure" $ do
+        it "pure" $
             pure (42 :: Integer) `shouldBe` Identity 42
 
         it "ap" $ do
-            (Identity even) <*> (Identity (42 :: Integer)) `shouldBe` Identity True
-            (Identity odd) <*> (Identity (42 :: Integer)) `shouldBe` Identity False
+            Identity even <*> Identity (42 :: Integer) `shouldBe` Identity True
+            Identity odd <*> Identity (42 :: Integer) `shouldBe` Identity False

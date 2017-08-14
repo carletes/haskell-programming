@@ -11,7 +11,7 @@ import Test.Hspec
 -- added = (+3) (lookup 3 $ zip [1, 2, 3] [4, 5, 6])
 
 added :: Maybe Integer
-added = (+3) <$> (lookup 3 $ zip [1, 2, 3] [4, 5, 6])
+added = (+3) <$> lookup 3 (zip [1, 2, 3] [4, 5, 6])
 
 -- y :: Maybe Integer
 -- z :: Maybe Integer
@@ -67,16 +67,16 @@ summed :: Maybe Integer
 summed = sum <$> ((,) <$> xi <*> yi)
 
 main :: IO ()
-main = hspec $ do
+main = hspec $
     describe "Expressions type-check" $ do
-        it "added" $ do
-            added `shouldBe` (Just 9)
+        it "added" $
+            added `shouldBe` Just 9
 
-        it "tupled" $ do
+        it "tupled" $
             tupled `shouldBe` Just (6, 5)
 
-        it "maxed" $ do
+        it "maxed" $
             maxed `shouldBe` Just 3
 
-        it "summed" $ do
+        it "summed" $
             summed `shouldBe` Just 5
