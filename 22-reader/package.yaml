@@ -14,5 +14,8 @@ library:
     - base
 
 tests:
+  exercise-reading-comprehension:
+    main: exercise-reading-comprehension.hs
+
   exercise-warming-up:
     main: exercise-warming-up.hs
