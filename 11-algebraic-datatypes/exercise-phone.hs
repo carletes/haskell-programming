@@ -47,4 +47,4 @@ tapsFor p c = go p c [] where
   go [] _ acc = acc
   go (k:ks) c acc = case (keyTaps c k) of
                       Just taps -> go ks c (acc ++ taps)
-                      Nothing -> go ks c acc
+                      Nothing   -> go ks c acc

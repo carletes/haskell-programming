@@ -1,6 +1,6 @@
 module Main where
 
-import Data.Monoid hiding ((<>))
+import Data.Monoid     hiding ((<>))
 import Data.Semigroup
 import Test.Hspec
 import Test.QuickCheck hiding (Failure, Success)

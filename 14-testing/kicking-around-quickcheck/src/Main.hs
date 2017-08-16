@@ -1,6 +1,6 @@
 module Main where
 
-import Test.QuickCheck (Arbitrary, Gen, arbitrary, sample)
+import Test.QuickCheck     (Arbitrary, Gen, arbitrary, sample)
 import Test.QuickCheck.Gen (oneof)
 
 data Trivial =

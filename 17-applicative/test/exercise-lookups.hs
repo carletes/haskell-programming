@@ -2,7 +2,7 @@
 
 module Main where
 
-import Data.List (elemIndex)
+import Data.List  (elemIndex)
 import Test.Hspec
 
 -- Make the following expressions type-check using `pure`, `<$>` and `<*>`

@@ -2,8 +2,8 @@
 
 module Main where
 
-import Prelude hiding (Left, Right)
 import Control.Monad
+import Prelude                  hiding (Left, Right)
 
 import Test.Hspec
 import Test.Hspec.Checkers
@@ -48,7 +48,7 @@ data PhhhbbtttEither b a =
   deriving (Eq, Show)
 
 instance Functor (PhhhbbtttEither b) where
-    fmap f (Left x) = Left (f x)
+    fmap f (Left x)  = Left (f x)
     fmap _ (Right y) = Right y
 
 instance (Monoid b) => Applicative (PhhhbbtttEither b) where
@@ -115,7 +115,7 @@ data List a =
   deriving (Eq, Show)
 
 instance Functor List where
-    fmap _ Nil = Nil
+    fmap _ Nil         = Nil
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
 instance Monoid (List a) where

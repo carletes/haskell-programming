@@ -18,11 +18,11 @@ data Vehicle = Car Manufacturer
 
 isCar :: Vehicle -> Bool
 isCar (Car _) = True
-isCar _ = False
+isCar _       = False
 
 isPlane :: Vehicle -> Bool
 isPlane (Plane _) = True
-isPlane _ = False
+isPlane _         = False
 
 areCars :: [Vehicle] -> Bool
 areCars = all isCar

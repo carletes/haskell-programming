@@ -9,7 +9,7 @@ replaceThe = concat . (intersperse " ") . (map replace . words) where
   replace s =
       case (notThe s) of
         Nothing -> "a"
-        Just w -> w
+        Just w  -> w
 
 countTheBeforeVowel :: String -> Integer
 countTheBeforeVowel s = go (words s) 0 where
@@ -18,7 +18,7 @@ countTheBeforeVowel s = go (words s) 0 where
   go (w:ws) acc = if w == "the" then go ws (acc + startsWithVowel ws)
                   else go ws acc
   startsWithVowel :: [String] -> Integer
-  startsWithVowel [] = 0
+  startsWithVowel []    = 0
   startsWithVowel (w:_) = if head w `elem` "aeiou" then 1 else 0
 
 countVowels :: String -> Int

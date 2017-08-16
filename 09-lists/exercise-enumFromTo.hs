@@ -1,5 +1,5 @@
 eftBool :: Bool -> Bool -> [Bool]
 eftBool False False = []
-eftBool False True = [False, True]
-eftBool True False = []
-eftBool True True = [True]
+eftBool False True  = [False, True]
+eftBool True False  = []
+eftBool True True   = [True]

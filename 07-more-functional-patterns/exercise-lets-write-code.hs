@@ -10,7 +10,7 @@ hunsD x = (x `div` 100) `mod` 10
 
 foldBool_case :: a -> a -> Bool -> a
 foldBool_case x y p = case p of
-  True -> x
+  True  -> x
   False -> y
 
 foldBool_guard :: a -> a -> Bool -> a

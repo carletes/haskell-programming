@@ -1,8 +1,8 @@
 module Main where
 
 import Data.Monoid
-import Test.QuickCheck
 import Test.Hspec
+import Test.QuickCheck
 
 import Optional
 

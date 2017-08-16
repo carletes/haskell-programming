@@ -4,7 +4,7 @@ data Nat =
   deriving (Eq, Show)
 
 natToInteger :: Nat -> Integer
-natToInteger Zero = 0
+natToInteger Zero     = 0
 natToInteger (Succ n) = 1 + natToInteger n
 
 integerToNat :: Integer -> Maybe Nat

@@ -4,9 +4,9 @@ filterUpper :: String -> String
 filterUpper s = filter isUpper s
 
 capitalize :: String -> String
-capitalize "" = ""
+capitalize ""     = ""
 capitalize (x:xs) = (toUpper x) : xs
 
 uppercase :: String -> String
-uppercase "" = ""
+uppercase ""     = ""
 uppercase (x:xs) = (toUpper x) : uppercase xs

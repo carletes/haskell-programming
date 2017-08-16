@@ -12,9 +12,9 @@ newtype First' a =
     deriving (Eq, Show)
 
 instance Monoid (First' a) where
-    mappend (First' (Only a)) _ = (First' (Only a))
+    mappend (First' (Only a)) _             = (First' (Only a))
     mappend (First' Nada) (First' (Only b)) = (First' (Only b))
-    mappend (First' Nada) (First' Nada) = First' Nada
+    mappend (First' Nada) (First' Nada)     = First' Nada
 
     mempty = First' Nada
 

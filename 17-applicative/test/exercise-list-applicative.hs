@@ -24,7 +24,7 @@ fromList = foldr Cons Nil
 -- applicative instance).
 
 instance Functor List where
-    fmap _ Nil = Nil
+    fmap _ Nil         = Nil
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
 -- Our applicative instance for `List`.
@@ -40,11 +40,11 @@ instance Applicative List where
 -- Some helper functions used above.
 
 append :: List a -> List a -> List a
-append Nil ys = ys
+append Nil ys         = ys
 append (Cons x xs) ys = Cons x $ append xs ys
 
 fold :: (a -> b -> b) -> b -> List a -> b
-fold  _ b Nil = b
+fold  _ b Nil       = b
 fold f b (Cons h t) = f h (fold f b t)
 
 concat' :: List (List a) -> List a

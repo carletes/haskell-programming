@@ -19,12 +19,12 @@ theDatabase =
 filterDbDate :: [DatabaseItem] -> [UTCTime]
 filterDbDate = foldr f [] where
   f (DbDate d) lst = [d] ++ lst
-  f _ lst = lst
+  f _ lst          = lst
 
 filterDbNumber :: [DatabaseItem] -> [Integer]
 filterDbNumber = foldr f [] where
   f (DbNumber n) lst = [n] ++ lst
-  f _ lst = lst
+  f _ lst            = lst
 
 mostRecent :: [DatabaseItem] -> UTCTime
 mostRecent = maximum . filterDbDate

@@ -27,14 +27,14 @@ elem' x xs = foldr (\a b -> b || a == x) False xs
 
 minimum' :: (Foldable t, Ord a) => t a -> Maybe a
 minimum' xs = foldr lt Nothing xs where
-  lt a Nothing = Just a
+  lt a Nothing  = Just a
   lt a (Just b) = if a < b then Just a else Just b
 
 -- maximum
 
 maximum' :: (Foldable t, Ord a) => t a -> Maybe a
 maximum' xs = foldr gt Nothing xs where
-  gt a Nothing = Just a
+  gt a Nothing  = Just a
   gt a (Just b) = if a > b then Just a else Just b
 
 -- null

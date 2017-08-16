@@ -18,7 +18,7 @@ data BoolAndSomethingElse a =
 
 instance Functor BoolAndSomethingElse where
     fmap f (False' a) = False' (f a)
-    fmap f (True' a) = True' (f a)
+    fmap f (True' a)  = True' (f a)
 
 instance (Arbitrary a) => Arbitrary (BoolAndSomethingElse a) where
     arbitrary = do
@@ -39,7 +39,7 @@ data BoolAndMaybeSomethingElse a =
     deriving (Eq, Show)
 
 instance Functor BoolAndMaybeSomethingElse where
-    fmap _ Falsish = Falsish
+    fmap _ Falsish     = Falsish
     fmap f (Trueish a) = Trueish (f a)
 
 instance (Arbitrary a) => Arbitrary (BoolAndMaybeSomethingElse a) where
@@ -68,7 +68,7 @@ data Sum b a =
     deriving (Eq, Show)
 
 instance Functor (Sum e) where
-    fmap f (First a) = First (f a)
+    fmap f (First a)  = First (f a)
     fmap _ (Second b) = Second b
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Sum b a) where
@@ -92,7 +92,7 @@ data Company a c b =
     deriving (Eq, Show)
 
 instance Functor (Company e e') where
-    fmap f (Something b) = Something (f b)
+    fmap f (Something b)  = Something (f b)
     fmap _ (DeepBlue a c) = DeepBlue a c
 
 instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Company a c b) where
@@ -142,8 +142,8 @@ data Quant a b =
   deriving (Eq, Show)
 
 instance Functor (Quant a) where
-    fmap _ Finance = Finance
-    fmap _ (Desk a) = Desk a
+    fmap _ Finance   = Finance
+    fmap _ (Desk a)  = Desk a
     fmap f (Floor b) = Floor (f b)
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Quant a b) where
@@ -302,7 +302,7 @@ data List a =
   deriving (Eq, Show)
 
 instance Functor List where
-    fmap _ Nil = Nil
+    fmap _ Nil         = Nil
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
 instance (Arbitrary a) => Arbitrary (List a) where
@@ -327,8 +327,8 @@ data GoatLord a =
   deriving (Eq, Show)
 
 instance Functor GoatLord where
-    fmap _ NoGoat = NoGoat
-    fmap f (OneGoat a) = OneGoat (f a)
+    fmap _ NoGoat            = NoGoat
+    fmap f (OneGoat a)       = OneGoat (f a)
     fmap f (MoreGoats a b c) = MoreGoats (fmap f a) (fmap f b) (fmap f c)
 
 instance (Arbitrary a) => Arbitrary (GoatLord a) where
@@ -355,9 +355,9 @@ data TalkToMe a =
   | Read (String -> a)
 
 instance Functor TalkToMe where
-    fmap _ Halt = Halt
+    fmap _ Halt        = Halt
     fmap f (Print s a) = Print s (f a)
-    fmap f (Read g) = Read (f . g)
+    fmap f (Read g)    = Read (f . g)
 
 instance (Arbitrary a) => Arbitrary (TalkToMe a) where
     arbitrary = do
@@ -377,9 +377,9 @@ instance (Eq a) => Eq (TalkToMe a) where
     Read _ == _ = False
 
 instance (Show a) => Show (TalkToMe a) where
-    show Halt = "Halt"
+    show Halt        = "Halt"
     show (Print s a) = "Print " ++ s ++ " " ++ (show a)
-    show (Read _) = "Read (String -> a)"
+    show (Read _)    = "Read (String -> a)"
 
 talkToMeIdentity :: TalkToMe Int -> Bool
 talkToMeIdentity = functorIdentity

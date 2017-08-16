@@ -66,7 +66,7 @@ data Optional a =
   deriving (Eq, Show)
 
 instance Functor Optional where
-    fmap _ Nada = Nada
+    fmap _ Nada    = Nada
     fmap f (Yep a) = Yep (f a)
 
 instance Applicative Optional where
@@ -76,11 +76,11 @@ instance Applicative Optional where
     Yep f <*> Yep a = Yep (f a)
 
 instance Foldable Optional where
-    foldr _ b Nada = b
+    foldr _ b Nada    = b
     foldr f b (Yep a) = f a b
 
 instance Traversable Optional where
-    traverse _ Nada = pure Nada
+    traverse _ Nada    = pure Nada
     traverse f (Yep a) = Yep <$> f a
 
 instance Arbitrary a => Arbitrary (Optional a) where
@@ -99,7 +99,7 @@ data List a =
   deriving (Eq, Show)
 
 instance Functor List where
-    fmap _ Nil = Nil
+    fmap _ Nil         = Nil
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
 instance Applicative List where
@@ -107,18 +107,18 @@ instance Applicative List where
     Nil <*> _ = Nil
     (Cons f fs) <*> xs = (f <$> xs) `append` (fs <*> xs) where
       append :: List a -> List a -> List a
-      append Nil ys = ys
+      append Nil ys          = ys
       append (Cons x xs') ys = Cons x $ append xs' ys
 
 instance Foldable List where
-    foldr _ b Nil = b
+    foldr _ b Nil         = b
     foldr f b (Cons x xs) = foldr f (f x b) xs
 
 instance Traversable List where
     traverse f = foldr cons_f (pure Nil)
       where cons_f x xs = Cons <$> f x <*> xs
 
-    sequenceA Nil = pure Nil
+    sequenceA Nil         = pure Nil
     sequenceA (Cons x xs) =  pure Cons <*> x <*> sequenceA xs
 
 -- Test suite driver.

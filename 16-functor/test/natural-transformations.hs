@@ -14,7 +14,7 @@ type Nat f g = forall a. f a -> g a
 --- An example of a natural transformation:
 
 maybeToList :: Nat Maybe []
-maybeToList Nothing = []
+maybeToList Nothing  = []
 maybeToList (Just x) = [x]
 
 main :: IO ()

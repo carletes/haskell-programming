@@ -14,7 +14,7 @@ data Sum a b =
   deriving (Eq, Show)
 
 instance Functor (Sum a) where
-    fmap _ (First a) = First a
+    fmap _ (First a)  = First a
     fmap f (Second b) = Second (f b)
 
 instance (Arbitrary a, Arbitrary b) => Arbitrary (Sum a b) where

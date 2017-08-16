@@ -9,9 +9,9 @@ data Optional a =
 
 instance Monoid a => Monoid (Optional a) where
     mappend (Only a) (Only b) = Only (mappend a b)
-    mappend (Only a) Nada = Only a
-    mappend Nada (Only b) = Only b
-    mappend Nada Nada = Nada
+    mappend (Only a) Nada     = Only a
+    mappend Nada (Only b)     = Only b
+    mappend Nada Nada         = Nada
 
     mempty = Nada
 

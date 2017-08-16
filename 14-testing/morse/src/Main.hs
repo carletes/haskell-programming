@@ -1,12 +1,12 @@
 module Main where
 
-import Control.Monad (forever, when)
-import Data.List (intercalate)
+import Control.Monad      (forever, when)
+import Data.List          (intercalate)
 import System.Environment (getArgs)
-import System.Exit (exitFailure, exitSuccess)
-import System.IO (hGetLine, hIsEOF, stdin)
+import System.Exit        (exitFailure, exitSuccess)
+import System.IO          (hGetLine, hIsEOF, stdin)
 
-import Morse (morseToChar, stringToMorse)
+import Morse              (morseToChar, stringToMorse)
 
 convertFromMorse :: IO ()
 convertFromMorse = forever $ do
@@ -48,8 +48,8 @@ main = do
       [arg] ->
           case arg of
             "from" -> convertFromMorse
-            "to" -> convertToMorse
-            _ -> argError
+            "to"   -> convertToMorse
+            _      -> argError
       _ -> argError
   where
       argError = do
