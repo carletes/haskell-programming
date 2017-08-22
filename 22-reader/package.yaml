@@ -25,3 +25,6 @@ tests:
 
   exercise-warming-up:
     main: exercise-warming-up.hs
+
+  exercises-chapter:
+    main: exercises-chapter.hs
