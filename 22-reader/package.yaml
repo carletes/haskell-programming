@@ -14,6 +14,9 @@ library:
     - base
 
 tests:
+  exercise-ask:
+    main: exercise-ask.hs
+
   exercise-reading-comprehension:
     main: exercise-reading-comprehension.hs
 
