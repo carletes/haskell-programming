@@ -17,6 +17,9 @@ tests:
   exercise-ask:
     main: exercise-ask.hs
 
+  exercise-reader-monad:
+    main: exercise-reader-monad.hs
+
   exercise-reading-comprehension:
     main: exercise-reading-comprehension.hs
 
