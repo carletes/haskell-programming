@@ -12,4 +12,7 @@ The definition of `Reader`:
 	  fmap f (Reader ra) = Reader $ f . ra
 
 
-And an `Applicative`, too --- see [exercise-reading-comprehension](test/exercise-reading-comprehension.hs)
+`Reader` is also:
+
+* an `Applicative` --- see [exercise-reading-comprehension](test/exercise-reading-comprehension.hs)
+* a `Monad` --- see [exercise-reader-monad](test/exercise-reader-monad.hs)
