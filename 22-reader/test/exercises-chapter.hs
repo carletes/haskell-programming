@@ -1,6 +1,7 @@
 module Main where
 
 import Test.Hspec
+import Test.QuickCheck
 
 -- Some sample data.
 
@@ -29,6 +30,23 @@ zs = lookup 4 $ zip x y
 z' :: Integer -> Maybe Integer
 z' n = lookup n $ zip x z
 
+-- Have x1 make a tuple of xs and ys, and x2 make a tuple of ys and zs.
+x1 :: Maybe (Integer, Integer)
+x1 = (,) <$> xs <*> ys
+
+x2 :: Maybe (Integer, Integer)
+x2 = (,) <$> ys <*> zs
+
+-- Also, write x3 which takes one input and makes a tuple of the results of two
+-- applications of z' from above.
+
+x3 :: Integer -> (Maybe Integer, Maybe Integer)
+x3 n = (z' n, z' n)
+
+-- Let’s use uncurry to allow us to add the two values that are inside a tuple:
+summed :: Num c => (c, c) -> c
+summed = uncurry (+)
+
 main :: IO ()
 main = hspec $ do
     describe "First steps" $ do
@@ -42,3 +60,11 @@ main = hspec $ do
           z' 1 `shouldBe` Just 7
       it "z' 4 = Nothing" $
           z' 4 `shouldBe` Nothing
+      it "x1 = Just (6, 9)" $
+          x1 `shouldBe` Just (6, 9)
+      it "x2 = Nothing" $
+          x2 `shouldBe` Nothing
+      it "x3 3 = (Just 9, Just 9)" $
+          x3 3 `shouldBe` (Just 9, Just 9)
+      it "summed works like sum" $
+          property ((\n -> summed (n, n) == n + n) :: (Integer -> Bool))
