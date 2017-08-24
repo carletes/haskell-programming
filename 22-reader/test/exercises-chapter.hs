@@ -47,6 +47,12 @@ x3 n = (z' n, z' n)
 summed :: Num c => (c, c) -> c
 summed = uncurry (+)
 
+-- And now we’ll make a function similar to some we’ve seen before that lifts
+-- a boolean function over two partially applied functions:
+bolt :: Integer -> Bool
+bolt = (&&) <$> (>3) <*> (<8)
+
+
 main :: IO ()
 main = hspec $ do
     describe "First steps" $ do
@@ -66,5 +72,32 @@ main = hspec $ do
           x2 `shouldBe` Nothing
       it "x3 3 = (Just 9, Just 9)" $
           x3 3 `shouldBe` (Just 9, Just 9)
-      it "summed works like sum" $
+
+    describe "summed" $
+      it "works like sum" $
           property ((\n -> summed (n, n) == n + n) :: (Integer -> Bool))
+
+    describe "bolt is true for integers within (3, 8)" $ do
+      it "for <= 3" $
+          property $ \n -> n <= 3 ==> not $ bolt n
+      it "for >= 8" $
+          property $ \n -> n >= 8 ==> not $ bolt n
+      it "within (3, 8)" $ do
+          bolt 4 `shouldBe` True
+          bolt 5 `shouldBe` True
+          bolt 6 `shouldBe` True
+          bolt 7 `shouldBe` True
+
+    describe "Sanity check" $ do
+        it "sequenceA" $ do
+            sequenceA [Just 3, Just 2, Just 1] `shouldBe` (Just [3, 2, 1] :: Maybe [Integer])
+            sequenceA [x, y] `shouldBe` [[1, 4], [1, 5], [1, 6], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6]]
+            sequenceA [xs, ys] `shouldBe` Just [6, 9]
+            sequenceA [(>3), (<8), even] (7 :: Integer) `shouldBe` [True, True, False]
+
+        it "summed" $ do
+            summed <$> ((,) <$> xs <*> ys) `shouldBe` Just 15
+            fmap summed ((,) <$> xs <*> zs) `shouldBe` Nothing
+
+        it "bolt" $
+            fmap bolt z `shouldBe` [True, False, False]
