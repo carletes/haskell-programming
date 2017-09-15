@@ -1,0 +1,9 @@
+name: type-level-programming
+
+ghc-options: -Wall -pgmL markdown-unlit
+
+library:
+  source-dirs: .
+  dependencies:
+    - base
+    - markdown-unlit

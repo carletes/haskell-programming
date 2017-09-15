@@ -9,6 +9,7 @@ packages:
   - ./21-traversable
   - ./22-reader
   - ./23-state
+  - ./my-own/type-level-programming
 
 extra-deps: []
 
