@@ -30,12 +30,34 @@ Some examples of basic data types follow:
 ```haskell
 data Unit = MkUnit
 
-data Bool = True | False
+data MyBool = True | False
 ```
 
-In this example `Unit` and `Bool` are _type constructors_ (which
+In this example `Unit` and `MyBool` are _type constructors_ (which
 define types), whereas `MkUnit`, `True` and `False` are _data
 constructors_ (which define values).
+
+Both `Unit` and `MyBool` are _concrete types_, since their kind is
+`*`:
+
+    λ :k Unit
+    Unit :: *
+    λ :k MyBool
+    MyBool :: *
+    λ
+
+A more complex type is introduced:
+
+```haskell
+data IntAndChar = MkIntAndChar Int Char
+```
+
+The data constructor `MkIntChar` accepts two arguments, but the type
+`IntAndChar` is still a concrete type:
+
+    λ :k IntAndChar
+    IntAndChar :: *
+    λ
 
 [Basic Type Level Programming in Haskell]: http://www.parsonsmatt.org/2017/04/26/basic_type_level_programming_in_haskell.html
 [Literate Markdown]: https://github.com/sol/markdown-unlit
