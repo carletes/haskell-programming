@@ -1,4 +1,4 @@
 .stack-work/
 TAGS
-chapter*.cabal
+*.cabal
 README.html
