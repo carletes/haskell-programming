@@ -2,7 +2,7 @@ module Main where
 
 import System.Random (StdGen, randomR)
 
--- Refactor rollsToGetTwenty into having the limit be a function argument.
+-- Refactor `rollsToGetTwenty` into having the limit be a function argument.
 
 rollsToGetN :: Int -> StdGen -> Int
 rollsToGetN n = go n 0 0
