@@ -8,6 +8,7 @@ packages:
   - ./20-foldable
   - ./21-traversable
   - ./22-reader
+  - ./23-state
 
 extra-deps: []
 

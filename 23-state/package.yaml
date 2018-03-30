@@ -1,0 +1,20 @@
+name: chapter23
+
+ghc-options: -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
+
+source-dirs: test
+dependencies:
+  - base
+  - QuickCheck
+  - hspec
+
+library:
+  source-dirs: src
+  dependencies:
+    - base
+    - random
+    - transformers
+
+tests:
+  exercise-roll-your-own:
+    main: exercise-roll-your-own.hs
