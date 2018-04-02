@@ -45,4 +45,5 @@ main :: IO ()
 main = hspec $
     describe "Moi s a" $ do
       testBatch $ functor (undefined :: (Moi String Int, (Int, Int, Int)))
+      testBatch $ monoid (undefined :: Moi String String)
       testBatch $ applicative (undefined :: (Moi String String, (String, String, String)))
