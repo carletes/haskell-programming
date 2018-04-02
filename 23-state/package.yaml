@@ -6,7 +6,9 @@ source-dirs: test
 dependencies:
   - QuickCheck
   - base
+  - checkers
   - hspec
+  - hspec-checkers
   - random
   - transformers
 
@@ -22,3 +24,6 @@ tests:
     main: exercise-roll-your-own.hs
     dependencies:
       - chapter23
+
+  exercise-write-state-for-yourself:
+    main: exercise-write-state-for-yourself.hs
