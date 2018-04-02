@@ -20,3 +20,5 @@ library:
 tests:
   exercise-roll-your-own:
     main: exercise-roll-your-own.hs
+    dependencies:
+      - chapter23
