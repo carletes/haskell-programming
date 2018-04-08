@@ -59,5 +59,21 @@ The data constructor `MkIntChar` accepts two arguments, but the type
     IntAndChar :: *
     λ
 
+Data constructors behave like functions. For instance, the following
+funtion:
+
+```haskell
+first :: a -> b -> a
+first a _ = a
+```
+
+has a similar type to `MkIntAndchar`:
+
+    λ :t first
+    first :: a -> b -> a
+    λ :t MkIntAndChar
+    MkIntAndChar :: Int -> Char -> IntAndChar
+    λ
+
 [Basic Type Level Programming in Haskell]: http://www.parsonsmatt.org/2017/04/26/basic_type_level_programming_in_haskell.html
 [Literate Markdown]: https://github.com/sol/markdown-unlit
